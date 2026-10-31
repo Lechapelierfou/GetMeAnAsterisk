@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "GetMeAnAsterisk",
+  "version": "0.1",
+
+  "description": "Saves links with annotations and keep track until you found it.",
+
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "borderify@mozilla.org",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.mozilla.org/*"],
+      "js": ["borderify.js"]
+    }
+  ]
+}
