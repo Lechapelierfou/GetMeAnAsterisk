@@ -3,11 +3,7 @@
   "name": "GetMeAnAsterisk",
   "version": "0.1",
 
-  "description": "Saves links with annotations and keep track until you found it.",
-
-  "icons": {
-    "48": "icons/border-48.png"
-  },
+  "description": "Save pages to topic lists and keep track of your finds.",
 
   "browser_specific_settings": {
     "gecko": {
@@ -17,11 +13,13 @@
       }
     }
   },
-
-  "content_scripts": [
-    {
-      "matches": ["*://*.mozilla.org/*"],
-      "js": ["borderify.js"]
-    }
-  ]
+  "permissions": ["activeTab", "storage", "tabs"],
+  "action": {
+    "default_title": "Seite zu einer Liste hinzufügen",
+    "default_popup": "popup.html"
+  },
+  "sidebar_action": {
+    "default_title": "GetMeAn* – Recherchen",
+    "default_panel": "popup.html"
+  }
 }

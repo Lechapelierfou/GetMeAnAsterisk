@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GetMeAn*</title>
+    <link rel="stylesheet" href="popup.css" />
+    <script src="popup.js" defer></script>
+  </head>
+  <body>
+    <main class="popup">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">GETMEAN*</p>
+          <h1>Recherchen</h1>
+        </div>
+        <span class="asterisk" aria-hidden="true">*</span>
+      </header>
+
+      <section class="current-page" aria-labelledby="page-heading">
+        <p class="section-label" id="page-heading">Aktuelle Seite</p>
+        <p class="page-title" id="current-title">Seite wird geladen …</p>
+        <p class="page-url" id="current-url"></p>
+      </section>
+
+      <section class="lists" aria-labelledby="lists-heading">
+        <div class="section-heading">
+          <h2 id="lists-heading">Deine Themen</h2>
+          <span id="list-count" class="list-count">0</span>
+        </div>
+        <div id="topic-list" class="topic-list"></div>
+        <p id="empty-state" class="empty-state" hidden>Noch keine Themen. Lege deine erste Liste an.</p>
+      </section>
+
+      <form id="topic-form" class="topic-form">
+        <label for="topic-name">Neues Thema</label>
+        <div class="form-row">
+          <input id="topic-name" name="topic" maxlength="60" placeholder="z. B. Wohnungssuche" required />
+          <button class="create-button" type="submit" aria-label="Thema erstellen" title="Thema erstellen">+</button>
+        </div>
+      </form>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </main>
+  </body>
+</html>
