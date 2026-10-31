@@ -1,1 +1,3 @@
 # GetMeAnAsterisk
+
+GetMeAn* is a browser extension that supports you on searching and comparing things you like to buy. it is designed rather for things on which you like to annotate and where there is no specific search engine for. One example is if you are looking for an apartment you might have different sources for new apartments and you like to add annotations if you have contacted the owner of the apartment.
