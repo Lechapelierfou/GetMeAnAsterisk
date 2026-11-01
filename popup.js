@@ -26,9 +26,6 @@ async function refreshActiveTab() {
     currentTab = undefined;
   }
 
-  document.querySelector("#current-title").textContent = currentTab?.title || "Unbenannte Seite";
-  document.querySelector("#current-url").textContent = currentTab?.url || "Keine Seitenadresse verfügbar";
-
   for (const button of topicList.querySelectorAll(".add-button")) {
     button.disabled = !currentTab?.url;
   }
@@ -416,7 +413,6 @@ topicForm.addEventListener("submit", async (event) => {
 });
 
 loadPopup().catch(() => {
-  document.querySelector("#current-title").textContent = "Erweiterung konnte nicht geladen werden";
   statusMessage.textContent = "Bitte die Erweiterung neu laden und erneut versuchen.";
 });
 
