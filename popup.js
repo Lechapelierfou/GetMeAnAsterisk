@@ -72,6 +72,52 @@ function renderTopics() {
     const name = document.createElement("span");
     name.className = "topic-name";
     name.textContent = topic.name;
+    name.title = "Doppelklicken zum Umbenennen";
+    name.addEventListener("dblclick", () => {
+      const input = document.createElement("input");
+      input.className = "topic-name-input";
+      input.type = "text";
+      input.maxLength = 60;
+      input.value = topic.name;
+
+      name.replaceWith(input);
+      input.focus();
+      input.select();
+
+      let finished = false;
+      const finishEditing = async (save) => {
+        if (finished) return;
+        finished = true;
+
+        const newName = input.value.trim();
+        if (!save || !newName || newName === topic.name) {
+          input.replaceWith(name);
+          return;
+        }
+
+        const previousName = topic.name;
+        topic.name = newName;
+        try {
+          await browser.storage.local.set({ topics });
+          statusMessage.textContent = `Liste in „${newName}“ umbenannt.`;
+          renderTopics();
+        } catch {
+          topic.name = previousName;
+          statusMessage.textContent = "Liste konnte nicht umbenannt werden.";
+          renderTopics();
+        }
+      };
+
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          finishEditing(true);
+        } else if (event.key === "Escape") {
+          finishEditing(false);
+        }
+      });
+      input.addEventListener("blur", () => finishEditing(true));
+    });
 
     const actions = document.createElement("div");
     actions.className = "topic-actions";
