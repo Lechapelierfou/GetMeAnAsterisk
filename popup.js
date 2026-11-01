@@ -46,6 +46,29 @@ function renderTopics() {
     const heading = document.createElement("div");
     heading.className = "topic-heading";
 
+    const title = document.createElement("div");
+    title.className = "topic-title";
+
+    const content = document.createElement("div");
+    content.id = `topic-content-${topic.id}`;
+
+    const toggleButton = document.createElement("button");
+    toggleButton.className = "topic-toggle";
+    toggleButton.type = "button";
+    toggleButton.textContent = "▾";
+    toggleButton.title = "Liste zuklappen";
+    toggleButton.setAttribute("aria-label", `${topic.name} zuklappen`);
+    toggleButton.setAttribute("aria-expanded", "true");
+    toggleButton.setAttribute("aria-controls", content.id);
+    toggleButton.addEventListener("click", () => {
+      content.hidden = !content.hidden;
+      const expanded = !content.hidden;
+      toggleButton.textContent = expanded ? "▾" : "▸";
+      toggleButton.title = expanded ? "Liste zuklappen" : "Liste aufklappen";
+      toggleButton.setAttribute("aria-label", `${topic.name} ${expanded ? "zuklappen" : "aufklappen"}`);
+      toggleButton.setAttribute("aria-expanded", String(expanded));
+    });
+
     const name = document.createElement("span");
     name.className = "topic-name";
     name.textContent = topic.name;
@@ -57,6 +80,14 @@ function renderTopics() {
     size.className = "topic-size";
     size.textContent = String(topic.links.length);
 
+    const exportButton = document.createElement("button");
+    exportButton.className = "export-button";
+    exportButton.type = "button";
+    exportButton.textContent = "CSV";
+    exportButton.title = "Liste als CSV exportieren";
+    exportButton.setAttribute("aria-label", `${topic.name} als CSV exportieren`);
+    exportButton.addEventListener("click", () => exportTopic(topic.id));
+
     const addButton = document.createElement("button");
     addButton.className = "add-button";
     addButton.type = "button";
@@ -64,9 +95,11 @@ function renderTopics() {
     addButton.disabled = !currentTab?.url;
     addButton.addEventListener("click", () => addCurrentPage(topic.id));
 
-    actions.append(size, addButton);
-    heading.append(name, actions);
+    actions.append(size, exportButton, addButton);
+    title.append(toggleButton, name);
+    heading.append(title, actions);
     section.append(heading);
+    section.append(content);
 
     if (topic.links.length > 0) {
       const savedLinks = document.createElement("div");
@@ -95,30 +128,98 @@ function renderTopics() {
 
         row.append(anchor, removeButton);
 
-        const noteInput = document.createElement("textarea");
-        noteInput.className = "link-note";
-        noteInput.rows = 2;
-        noteInput.maxLength = 1000;
-        noteInput.placeholder = "Notiz zu diesem Eintrag …";
-        noteInput.value = link.note || "";
-        noteInput.setAttribute("aria-label", `Notiz zu ${link.title || link.url}`);
+        const priceInput = document.createElement("input");
+        priceInput.className = "link-price";
+        priceInput.type = "text";
+        priceInput.maxLength = 60;
+        priceInput.placeholder = "Preis (z. B. 12,99 €)";
+        priceInput.value = link.price || "";
+        priceInput.setAttribute("aria-label", `Preis zu ${link.title || link.url}`);
 
-        let saveTimer;
-        const saveNote = () => {
-          clearTimeout(saveTimer);
-          saveLinkNote(topic.id, link.url, noteInput.value);
+        const addressRow = document.createElement("div");
+        addressRow.className = "address-row";
+
+        const addressInput = document.createElement("input");
+        addressInput.className = "link-address";
+        addressInput.type = "text";
+        addressInput.maxLength = 500;
+        addressInput.placeholder = "Adresse";
+        addressInput.value = link.address || "";
+        addressInput.setAttribute("aria-label", `Adresse zu ${link.title || link.url}`);
+
+        const copyAddressButton = document.createElement("button");
+        copyAddressButton.className = "address-action";
+        copyAddressButton.type = "button";
+        copyAddressButton.textContent = "⧉";
+        copyAddressButton.title = "Adresse kopieren";
+        copyAddressButton.setAttribute("aria-label", `Adresse zu ${link.title || link.url} kopieren`);
+        copyAddressButton.addEventListener("click", () => copyAddress(addressInput.value));
+
+        const searchAddressButton = document.createElement("button");
+        searchAddressButton.className = "address-action";
+        searchAddressButton.type = "button";
+        searchAddressButton.textContent = "↗";
+        searchAddressButton.title = "Adresse auf OpenStreetMap suchen";
+        searchAddressButton.setAttribute("aria-label", `Adresse zu ${link.title || link.url} auf OpenStreetMap suchen`);
+        searchAddressButton.addEventListener("click", () => searchAddress(addressInput.value));
+
+        addressRow.append(addressInput, copyAddressButton, searchAddressButton);
+
+        const commentInput = document.createElement("textarea");
+        commentInput.className = "link-comment";
+        commentInput.rows = 2;
+        commentInput.maxLength = 1000;
+        commentInput.placeholder = "Kommentar zu diesem Eintrag …";
+        commentInput.value = link.note || "";
+        commentInput.setAttribute("aria-label", `Kommentar zu ${link.title || link.url}`);
+
+        const bindAutoSave = (input, field, label) => {
+          let saveTimer;
+          const save = () => {
+            clearTimeout(saveTimer);
+            saveLinkField(topic.id, link.url, field, input.value, label);
+          };
+          input.addEventListener("input", () => {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(save, 300);
+          });
+          input.addEventListener("blur", save);
         };
-        noteInput.addEventListener("input", () => {
-          clearTimeout(saveTimer);
-          saveTimer = setTimeout(saveNote, 300);
-        });
-        noteInput.addEventListener("blur", saveNote);
+        bindAutoSave(priceInput, "price", "Preis");
+        bindAutoSave(addressInput, "address", "Adresse");
+        bindAutoSave(commentInput, "note", "Kommentar");
 
-        entry.append(row, noteInput);
+        const statusRow = document.createElement("div");
+        statusRow.className = "link-status";
+
+        const contactedLabel = document.createElement("label");
+        contactedLabel.className = "link-checkbox";
+        const contactedCheckbox = document.createElement("input");
+        contactedCheckbox.type = "checkbox";
+        contactedCheckbox.checked = Boolean(link.contacted);
+        contactedCheckbox.setAttribute("aria-label", `Kontaktiert: ${link.title || link.url}`);
+        contactedCheckbox.addEventListener("change", () => {
+          saveLinkField(topic.id, link.url, "contacted", contactedCheckbox.checked, "Kontaktiert-Status");
+        });
+        contactedLabel.append(contactedCheckbox, document.createTextNode("Kontaktiert"));
+
+        const finishedLabel = document.createElement("label");
+        finishedLabel.className = "link-checkbox";
+        const finishedCheckbox = document.createElement("input");
+        finishedCheckbox.type = "checkbox";
+        finishedCheckbox.checked = Boolean(link.finished);
+        finishedCheckbox.setAttribute("aria-label", `Fertig: ${link.title || link.url}`);
+        finishedCheckbox.addEventListener("change", () => {
+          saveLinkField(topic.id, link.url, "finished", finishedCheckbox.checked, "Fertig-Status");
+        });
+        finishedLabel.append(finishedCheckbox, document.createTextNode("Fertig"));
+
+        statusRow.append(contactedLabel, finishedLabel);
+        entry.append(row, priceInput, addressRow, commentInput, statusRow);
         savedLinks.append(entry);
       }
 
-      section.append(savedLinks);
+      content.append(savedLinks);
     }
 
     const footer = document.createElement("div");
@@ -129,7 +230,7 @@ function renderTopics() {
     deleteButton.textContent = "Thema löschen";
     deleteButton.addEventListener("click", () => deleteTopic(topic.id));
     footer.append(deleteButton);
-    section.append(footer);
+    content.append(footer);
     topicList.append(section);
   }
 }
@@ -139,17 +240,76 @@ async function saveTopics() {
   renderTopics();
 }
 
-async function saveLinkNote(topicId, url, note) {
+function exportTopic(topicId) {
+  const topic = topics.find((item) => item.id === topicId);
+  if (!topic) return;
+
+  const escapeCsvValue = (value) => `"${String(value ?? "").replaceAll('"', '""')}"`;
+  const rows = [
+    ["Link", "Preis", "Adresse", "Kommentar", "Kontaktiert", "Fertig"],
+    ...topic.links.map((link) => [
+      link.url,
+      link.price || "",
+      link.address || "",
+      link.note || "",
+      link.contacted ? "Ja" : "Nein",
+      link.finished ? "Ja" : "Nein",
+    ]),
+  ];
+  const csv = `\uFEFF${rows.map((row) => row.map(escapeCsvValue).join(",")).join("\r\n")}`;
+  const blobUrl = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+  const downloadLink = document.createElement("a");
+  const filename = topic.name.replace(/[\\/:*?"<>|]/g, "_").trim() || "Themenliste";
+
+  downloadLink.href = blobUrl;
+  downloadLink.download = `${filename}.csv`;
+  downloadLink.click();
+  setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+  statusMessage.textContent = `„${topic.name}“ als CSV exportiert.`;
+}
+
+async function copyAddress(address) {
+  const value = address.trim();
+  if (!value) {
+    statusMessage.textContent = "Bitte zuerst eine Adresse eingeben.";
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(value);
+    statusMessage.textContent = "Adresse kopiert.";
+  } catch {
+    statusMessage.textContent = "Adresse konnte nicht kopiert werden.";
+  }
+}
+
+async function searchAddress(address) {
+  const value = address.trim();
+  if (!value) {
+    statusMessage.textContent = "Bitte zuerst eine Adresse eingeben.";
+    return;
+  }
+
+  try {
+    await browser.tabs.create({
+      url: `https://www.openstreetmap.org/search?query=${encodeURIComponent(value)}`,
+    });
+  } catch {
+    statusMessage.textContent = "OpenStreetMap konnte nicht geöffnet werden.";
+  }
+}
+
+async function saveLinkField(topicId, url, field, value, label) {
   const topic = topics.find((item) => item.id === topicId);
   const link = topic?.links.find((item) => item.url === url);
   if (!link) return;
 
-  link.note = note;
+  link[field] = value;
   try {
     await browser.storage.local.set({ topics });
-    statusMessage.textContent = "Notiz gespeichert.";
+    statusMessage.textContent = `${label} gespeichert.`;
   } catch {
-    statusMessage.textContent = "Notiz konnte nicht gespeichert werden.";
+    statusMessage.textContent = `${label} konnte nicht gespeichert werden.`;
   }
 }
 
@@ -167,6 +327,11 @@ async function addCurrentPage(topicId) {
   topic.links.unshift({
     url: currentTab.url,
     title: currentTab.title || currentTab.url,
+    price: "",
+    address: "",
+    note: "",
+    contacted: false,
+    finished: false,
     savedAt: new Date().toISOString(),
   });
   await saveTopics();
