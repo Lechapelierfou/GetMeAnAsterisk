@@ -11,4 +11,4 @@ GetMeAn* collects web pages in topic-based lists. For example, create a list for
 5. Create a topic or click **Add page** next to an existing topic.
 6. To keep the extension open while browsing, open **View > Sidebar** and select `GetMeAn*`.
 
-Topics and saved pages are stored locally in your Firefox profile. The extension requires access to the active tab's title and URL, as well as local extension storage.
+Topics and saved pages are stored locally in your Firefox profile. The extension requires access to the active tab's title and URL, as well as local extension storage. Currently on each plugin update data is lost.
