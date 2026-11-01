@@ -172,6 +172,20 @@ h2 {
   font-weight: 700;
   text-overflow: ellipsis;
   white-space: nowrap;
+  cursor: text;
+}
+
+.topic-name-input {
+  width: 100%;
+  min-width: 0;
+  flex: 1;
+  padding: 2px 4px;
+  border: 1px solid var(--green);
+  border-radius: 0;
+  background: #fbfcf8;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .topic-actions {
