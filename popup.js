@@ -5,17 +5,100 @@ const emptyState = document.querySelector("#empty-state");
 const listCount = document.querySelector("#list-count");
 const statusMessage = document.querySelector("#status");
 
+const topicIdsKey = "topicIds";
+const topicStoragePrefix = "topic:";
 let currentTab;
 let topics = [];
 
 async function loadPopup() {
   const [, stored] = await Promise.all([
     refreshActiveTab(),
-    browser.storage.local.get("topics"),
+    loadStoredTopics(),
   ]);
 
-  topics = Array.isArray(stored.topics) ? stored.topics : [];
+  topics = stored.topics;
+  if (stored.migrated) {
+    statusMessage.textContent = "Vorhandene Listen wurden für Firefox Sync übernommen.";
+  }
   renderTopics();
+}
+
+async function loadStoredTopics() {
+  const [synced, local] = await Promise.all([
+    browser.storage.sync.get(null),
+    browser.storage.local.get(["topics", "topicsMigratedToSync"]),
+  ]);
+
+  if (Array.isArray(synced[topicIdsKey])) {
+    const syncedTopics = synced[topicIdsKey].map((id) => synced[`${topicStoragePrefix}${id}`]);
+    if (syncedTopics.some((topic) => !topic || !Array.isArray(topic.links))) {
+      throw new Error("Die synchronisierten Listen sind unvollständig.");
+    }
+
+    if (
+      !local.topicsMigratedToSync &&
+      Array.isArray(local.topics) &&
+      local.topics.length > 0
+    ) {
+      const syncedIds = new Set(syncedTopics.map((topic) => topic.id));
+      const mergedTopics = [
+        ...syncedTopics,
+        ...local.topics.filter((topic) => !syncedIds.has(topic.id)),
+      ];
+      await persistTopics(mergedTopics);
+      await browser.storage.local.set({ topicsMigratedToSync: true });
+      return { topics: mergedTopics, migrated: true };
+    }
+
+    return { topics: syncedTopics, migrated: false };
+  }
+
+  const legacySyncTopics = Array.isArray(synced.topics) ? synced.topics : [];
+  const localTopics = Array.isArray(local.topics) && !local.topicsMigratedToSync
+    ? local.topics
+    : [];
+  const topicsToMigrate = [...legacySyncTopics];
+  const syncedIds = new Set(legacySyncTopics.map((topic) => topic.id));
+  topicsToMigrate.push(...localTopics.filter((topic) => !syncedIds.has(topic.id)));
+
+  if (topicsToMigrate.length > 0 || Array.isArray(local.topics) || Array.isArray(synced.topics)) {
+    await persistTopics(topicsToMigrate);
+    if (Array.isArray(local.topics)) {
+      await browser.storage.local.set({ topicsMigratedToSync: true });
+    }
+    return {
+      topics: topicsToMigrate,
+      migrated: Array.isArray(local.topics) && !local.topicsMigratedToSync,
+    };
+  }
+
+  return { topics: [], migrated: false };
+}
+
+async function persistTopics(nextTopics) {
+  const topicKeys = nextTopics.map((topic) => `${topicStoragePrefix}${topic.id}`);
+  const values = Object.fromEntries(
+    nextTopics.map((topic) => [`${topicStoragePrefix}${topic.id}`, topic]),
+  );
+  values[topicIdsKey] = nextTopics.map((topic) => topic.id);
+
+  await browser.storage.sync.set(values);
+
+  const stored = await browser.storage.sync.get(null);
+  const staleKeys = Object.keys(stored).filter(
+    (key) => key.startsWith(topicStoragePrefix) && !topicKeys.includes(key),
+  );
+  if (staleKeys.length > 0) {
+    await browser.storage.sync.remove(staleKeys);
+  }
+  if (Object.hasOwn(stored, "topics")) {
+    await browser.storage.sync.remove("topics");
+  }
+}
+
+function syncErrorMessage(error) {
+  const details = error instanceof Error ? ` ${error.message}` : "";
+  return `Speichern in Firefox Sync fehlgeschlagen.${details} Prüfe die Sync-Einstellungen und das Speicherlimit.`;
 }
 
 async function refreshActiveTab() {
@@ -95,12 +178,12 @@ function renderTopics() {
         const previousName = topic.name;
         topic.name = newName;
         try {
-          await browser.storage.local.set({ topics });
+          await persistTopics(topics);
           statusMessage.textContent = `Liste in „${newName}“ umbenannt.`;
           renderTopics();
-        } catch {
+        } catch (error) {
           topic.name = previousName;
-          statusMessage.textContent = "Liste konnte nicht umbenannt werden.";
+          statusMessage.textContent = syncErrorMessage(error);
           renderTopics();
         }
       };
@@ -279,8 +362,15 @@ function renderTopics() {
 }
 
 async function saveTopics() {
-  await browser.storage.local.set({ topics });
+  try {
+    await persistTopics(topics);
+  } catch (error) {
+    statusMessage.textContent = syncErrorMessage(error);
+    renderTopics();
+    return false;
+  }
   renderTopics();
+  return true;
 }
 
 function exportTopic(topicId) {
@@ -349,10 +439,10 @@ async function saveLinkField(topicId, url, field, value, label) {
 
   link[field] = value;
   try {
-    await browser.storage.local.set({ topics });
+    await persistTopics(topics);
     statusMessage.textContent = `${label} gespeichert.`;
-  } catch {
-    statusMessage.textContent = `${label} konnte nicht gespeichert werden.`;
+  } catch (error) {
+    statusMessage.textContent = syncErrorMessage(error);
   }
 }
 
@@ -377,8 +467,9 @@ async function addCurrentPage(topicId) {
     finished: false,
     savedAt: new Date().toISOString(),
   });
-  await saveTopics();
-  statusMessage.textContent = `Seite zu „${topic.name}“ hinzugefügt.`;
+  if (await saveTopics()) {
+    statusMessage.textContent = `Seite zu „${topic.name}“ hinzugefügt.`;
+  }
 }
 
 async function removeLink(topicId, url) {
@@ -386,14 +477,16 @@ async function removeLink(topicId, url) {
   if (!topic) return;
 
   topic.links = topic.links.filter((link) => link.url !== url);
-  await saveTopics();
-  statusMessage.textContent = "Seite entfernt.";
+  if (await saveTopics()) {
+    statusMessage.textContent = "Seite entfernt.";
+  }
 }
 
 async function deleteTopic(topicId) {
   topics = topics.filter((topic) => topic.id !== topicId);
-  await saveTopics();
-  statusMessage.textContent = "Thema gelöscht.";
+  if (await saveTopics()) {
+    statusMessage.textContent = "Thema gelöscht.";
+  }
 }
 
 topicForm.addEventListener("submit", async (event) => {
@@ -406,14 +499,38 @@ topicForm.addEventListener("submit", async (event) => {
     name,
     links: [],
   });
-  await saveTopics();
-  topicForm.reset();
-  topicNameInput.focus();
-  statusMessage.textContent = `Thema „${name}“ erstellt.`;
+  if (await saveTopics()) {
+    topicForm.reset();
+    topicNameInput.focus();
+    statusMessage.textContent = `Thema „${name}“ erstellt.`;
+  }
 });
 
-loadPopup().catch(() => {
-  statusMessage.textContent = "Bitte die Erweiterung neu laden und erneut versuchen.";
+loadPopup().catch((error) => {
+  statusMessage.textContent = `Listen konnten nicht geladen oder synchronisiert werden.${error instanceof Error ? ` ${error.message}` : ""}`;
+});
+
+browser.storage.onChanged.addListener(async (changes, areaName) => {
+  if (
+    areaName !== "sync" ||
+    !Object.keys(changes).some((key) => key === topicIdsKey || key.startsWith(topicStoragePrefix))
+  ) {
+    return;
+  }
+
+  try {
+    const stored = await browser.storage.sync.get(null);
+    if (!Array.isArray(stored[topicIdsKey])) return;
+
+    const updatedTopics = stored[topicIdsKey].map((id) => stored[`${topicStoragePrefix}${id}`]);
+    if (JSON.stringify(updatedTopics) === JSON.stringify(topics)) return;
+
+    topics = updatedTopics;
+    renderTopics();
+    statusMessage.textContent = "Listen wurden über Firefox Sync aktualisiert.";
+  } catch (error) {
+    statusMessage.textContent = `Listen konnten nicht aktualisiert werden.${error instanceof Error ? ` ${error.message}` : ""}`;
+  }
 });
 
 browser.tabs.onActivated.addListener(() => refreshActiveTab());
