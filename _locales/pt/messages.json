@@ -1,0 +1,197 @@
+{
+  "extensionDescription": {
+    "message": "Guarde páginas em listas temáticas e acompanhe as suas descobertas."
+  },
+  "actionTitle": {
+    "message": "Adicionar página a uma lista"
+  },
+  "sidebarTitle": {
+    "message": "GetMeAn* – ferramenta de pesquisa"
+  },
+  "topicsHeading": {
+    "message": "Os seus temas"
+  },
+  "emptyState": {
+    "message": "Ainda não há temas. Crie a sua primeira lista."
+  },
+  "newTopicLabel": {
+    "message": "Novo tema"
+  },
+  "topicPlaceholder": {
+    "message": "ex.: Pesquisa de apartamento"
+  },
+  "createTopic": {
+    "message": "Criar tema"
+  },
+  "migrationComplete": {
+    "message": "As listas existentes foram transferidas para o Firefox Sync."
+  },
+  "incompleteSyncedLists": {
+    "message": "As listas sincronizadas estão incompletas."
+  },
+  "syncSaveFailed": {
+    "message": "Falha ao guardar no Firefox Sync.$1 Verifique as definições do Sync e o limite de armazenamento."
+  },
+  "collapseList": {
+    "message": "Recolher lista"
+  },
+  "expandList": {
+    "message": "Expandir lista"
+  },
+  "collapseListAria": {
+    "message": "Recolher $1"
+  },
+  "expandListAria": {
+    "message": "Expandir $1"
+  },
+  "renameHint": {
+    "message": "Faça duplo clique para mudar o nome"
+  },
+  "topicRenamed": {
+    "message": "Lista renomeada para «$1»."
+  },
+  "exportCsv": {
+    "message": "Exportar lista como CSV"
+  },
+  "exportCsvAria": {
+    "message": "Exportar $1 como CSV"
+  },
+  "addPage": {
+    "message": "Adicionar página"
+  },
+  "remove": {
+    "message": "Remover"
+  },
+  "removeLinkAria": {
+    "message": "Remover $1 de $2"
+  },
+  "pricePlaceholder": {
+    "message": "Preço (ex.: 12,99 €)"
+  },
+  "priceFor": {
+    "message": "Preço de $1"
+  },
+  "addressPlaceholder": {
+    "message": "Morada"
+  },
+  "addressFor": {
+    "message": "Morada de $1"
+  },
+  "copyAddress": {
+    "message": "Copiar morada"
+  },
+  "copyAddressFor": {
+    "message": "Copiar morada de $1"
+  },
+  "searchAddress": {
+    "message": "Pesquisar morada no OpenStreetMap"
+  },
+  "searchAddressFor": {
+    "message": "Pesquisar morada de $1 no OpenStreetMap"
+  },
+  "commentPlaceholder": {
+    "message": "Comentário sobre esta entrada…"
+  },
+  "commentFor": {
+    "message": "Comentário sobre $1"
+  },
+  "contacted": {
+    "message": "Contactado"
+  },
+  "contactedFor": {
+    "message": "Contactado: $1"
+  },
+  "finished": {
+    "message": "Concluído"
+  },
+  "finishedFor": {
+    "message": "Concluído: $1"
+  },
+  "deleteTopic": {
+    "message": "Eliminar tema"
+  },
+  "csvUrlHeader": {
+    "message": "Ligação"
+  },
+  "csvPriceHeader": {
+    "message": "Preço"
+  },
+  "csvAddressHeader": {
+    "message": "Morada"
+  },
+  "csvCommentHeader": {
+    "message": "Comentário"
+  },
+  "csvContactedHeader": {
+    "message": "Contactado"
+  },
+  "csvFinishedHeader": {
+    "message": "Concluído"
+  },
+  "yes": {
+    "message": "Sim"
+  },
+  "no": {
+    "message": "Não"
+  },
+  "defaultFilename": {
+    "message": "Lista de temas"
+  },
+  "topicExported": {
+    "message": "«$1» exportado como CSV."
+  },
+  "enterAddressFirst": {
+    "message": "Introduza primeiro uma morada."
+  },
+  "addressCopied": {
+    "message": "Morada copiada."
+  },
+  "addressCopyFailed": {
+    "message": "Não foi possível copiar a morada."
+  },
+  "openStreetMapFailed": {
+    "message": "Não foi possível abrir o OpenStreetMap."
+  },
+  "fieldSaved": {
+    "message": "Campo «$1» guardado."
+  },
+  "price": {
+    "message": "Preço"
+  },
+  "address": {
+    "message": "Morada"
+  },
+  "comment": {
+    "message": "Comentário"
+  },
+  "contactedStatus": {
+    "message": "Estado do contacto"
+  },
+  "finishedStatus": {
+    "message": "Estado de conclusão"
+  },
+  "pageAlreadySaved": {
+    "message": "Esta página já está na lista."
+  },
+  "pageAdded": {
+    "message": "Página adicionada a «$1»."
+  },
+  "pageRemoved": {
+    "message": "Página removida."
+  },
+  "topicDeleted": {
+    "message": "Tema eliminado."
+  },
+  "topicCreated": {
+    "message": "Tema «$1» criado."
+  },
+  "topicsLoadFailed": {
+    "message": "Não foi possível carregar nem sincronizar as listas.$1"
+  },
+  "syncUpdated": {
+    "message": "Listas atualizadas através do Firefox Sync."
+  },
+  "topicsUpdateFailed": {
+    "message": "Não foi possível atualizar as listas.$1"
+  }
+}

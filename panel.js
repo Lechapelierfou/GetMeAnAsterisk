@@ -10,7 +10,10 @@ function message(key, substitutions) {
 
 function localizeDocument() {
   const language = browser.i18n.getUILanguage().toLowerCase().split("-")[0];
-  document.documentElement.lang = ["de", "en", "fr"].includes(language) ? language : "de";
+  document.documentElement.lang = ["de", "en", "es", "fr", "it", "pl", "pt", "tr"]
+    .includes(language)
+    ? language
+    : "en";
 
   for (const element of document.querySelectorAll("[data-i18n]")) {
     element.textContent = message(element.dataset.i18n);
