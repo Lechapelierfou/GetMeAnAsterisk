@@ -1,0 +1,197 @@
+{
+  "extensionDescription": {
+    "message": "Enregistrez des pages dans des listes thématiques et retrouvez facilement vos découvertes."
+  },
+  "actionTitle": {
+    "message": "Ajouter la page à une liste"
+  },
+  "sidebarTitle": {
+    "message": "GetMeAn* – outil de recherche"
+  },
+  "topicsHeading": {
+    "message": "Vos thèmes"
+  },
+  "emptyState": {
+    "message": "Aucun thème pour le moment. Créez votre première liste."
+  },
+  "newTopicLabel": {
+    "message": "Nouveau thème"
+  },
+  "topicPlaceholder": {
+    "message": "p. ex. Recherche d’appartement"
+  },
+  "createTopic": {
+    "message": "Créer un thème"
+  },
+  "migrationComplete": {
+    "message": "Les listes existantes ont été transférées vers Firefox Sync."
+  },
+  "incompleteSyncedLists": {
+    "message": "Les listes synchronisées sont incomplètes."
+  },
+  "syncSaveFailed": {
+    "message": "Échec de l’enregistrement dans Firefox Sync.$1 Vérifiez les paramètres de Sync et la limite de stockage."
+  },
+  "collapseList": {
+    "message": "Replier la liste"
+  },
+  "expandList": {
+    "message": "Déplier la liste"
+  },
+  "collapseListAria": {
+    "message": "Replier $1"
+  },
+  "expandListAria": {
+    "message": "Déplier $1"
+  },
+  "renameHint": {
+    "message": "Double-cliquez pour renommer"
+  },
+  "topicRenamed": {
+    "message": "Liste renommée « $1 »."
+  },
+  "exportCsv": {
+    "message": "Exporter la liste au format CSV"
+  },
+  "exportCsvAria": {
+    "message": "Exporter $1 au format CSV"
+  },
+  "addPage": {
+    "message": "Ajouter la page"
+  },
+  "remove": {
+    "message": "Supprimer"
+  },
+  "removeLinkAria": {
+    "message": "Supprimer $1 de $2"
+  },
+  "pricePlaceholder": {
+    "message": "Prix (p. ex. 12,99 €)"
+  },
+  "priceFor": {
+    "message": "Prix pour $1"
+  },
+  "addressPlaceholder": {
+    "message": "Adresse"
+  },
+  "addressFor": {
+    "message": "Adresse de $1"
+  },
+  "copyAddress": {
+    "message": "Copier l’adresse"
+  },
+  "copyAddressFor": {
+    "message": "Copier l’adresse de $1"
+  },
+  "searchAddress": {
+    "message": "Rechercher l’adresse sur OpenStreetMap"
+  },
+  "searchAddressFor": {
+    "message": "Rechercher l’adresse de $1 sur OpenStreetMap"
+  },
+  "commentPlaceholder": {
+    "message": "Commentaire sur cette entrée…"
+  },
+  "commentFor": {
+    "message": "Commentaire sur $1"
+  },
+  "contacted": {
+    "message": "Contacté"
+  },
+  "contactedFor": {
+    "message": "Contacté : $1"
+  },
+  "finished": {
+    "message": "Terminé"
+  },
+  "finishedFor": {
+    "message": "Terminé : $1"
+  },
+  "deleteTopic": {
+    "message": "Supprimer le thème"
+  },
+  "csvUrlHeader": {
+    "message": "Lien"
+  },
+  "csvPriceHeader": {
+    "message": "Prix"
+  },
+  "csvAddressHeader": {
+    "message": "Adresse"
+  },
+  "csvCommentHeader": {
+    "message": "Commentaire"
+  },
+  "csvContactedHeader": {
+    "message": "Contacté"
+  },
+  "csvFinishedHeader": {
+    "message": "Terminé"
+  },
+  "yes": {
+    "message": "Oui"
+  },
+  "no": {
+    "message": "Non"
+  },
+  "defaultFilename": {
+    "message": "Liste de thèmes"
+  },
+  "topicExported": {
+    "message": "« $1 » a été exporté au format CSV."
+  },
+  "enterAddressFirst": {
+    "message": "Saisissez d’abord une adresse."
+  },
+  "addressCopied": {
+    "message": "Adresse copiée."
+  },
+  "addressCopyFailed": {
+    "message": "Impossible de copier l’adresse."
+  },
+  "openStreetMapFailed": {
+    "message": "Impossible d’ouvrir OpenStreetMap."
+  },
+  "fieldSaved": {
+    "message": "Champ « $1 » enregistré."
+  },
+  "price": {
+    "message": "Prix"
+  },
+  "address": {
+    "message": "Adresse"
+  },
+  "comment": {
+    "message": "Commentaire"
+  },
+  "contactedStatus": {
+    "message": "Statut de contact"
+  },
+  "finishedStatus": {
+    "message": "Statut d’achèvement"
+  },
+  "pageAlreadySaved": {
+    "message": "Cette page figure déjà dans la liste."
+  },
+  "pageAdded": {
+    "message": "Page ajoutée à « $1 »."
+  },
+  "pageRemoved": {
+    "message": "Page supprimée."
+  },
+  "topicDeleted": {
+    "message": "Thème supprimé."
+  },
+  "topicCreated": {
+    "message": "Thème « $1 » créé."
+  },
+  "topicsLoadFailed": {
+    "message": "Impossible de charger ou de synchroniser les listes.$1"
+  },
+  "syncUpdated": {
+    "message": "Listes mises à jour via Firefox Sync."
+  },
+  "topicsUpdateFailed": {
+    "message": "Impossible de mettre à jour les listes.$1"
+  }
+}

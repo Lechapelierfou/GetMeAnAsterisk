@@ -1,3 +1,27 @@
+function message(key, substitutions) {
+  return browser.i18n.getMessage(key, substitutions);
+}
+
+function localizeDocument() {
+  const language = browser.i18n.getUILanguage().toLowerCase().split("-")[0];
+  document.documentElement.lang = ["de", "en", "fr"].includes(language) ? language : "de";
+
+  for (const element of document.querySelectorAll("[data-i18n]")) {
+    element.textContent = message(element.dataset.i18n);
+  }
+  for (const [selector, attribute, dataAttribute] of [
+    ["[data-i18n-placeholder]", "placeholder", "i18nPlaceholder"],
+    ["[data-i18n-title]", "title", "i18nTitle"],
+    ["[data-i18n-aria-label]", "aria-label", "i18nAriaLabel"],
+  ]) {
+    for (const element of document.querySelectorAll(selector)) {
+      element.setAttribute(attribute, message(element.dataset[dataAttribute]));
+    }
+  }
+}
+
+localizeDocument();
+
 const topicList = document.querySelector("#topic-list");
 const topicForm = document.querySelector("#topic-form");
 const topicNameInput = document.querySelector("#topic-name");
@@ -10,7 +34,7 @@ const topicStoragePrefix = "topic:";
 let currentTab;
 let topics = [];
 
-async function loadPopup() {
+async function loadPanel() {
   const [, stored] = await Promise.all([
     refreshActiveTab(),
     loadStoredTopics(),
@@ -18,7 +42,7 @@ async function loadPopup() {
 
   topics = stored.topics;
   if (stored.migrated) {
-    statusMessage.textContent = "Vorhandene Listen wurden für Firefox Sync übernommen.";
+    statusMessage.textContent = message("migrationComplete");
   }
   renderTopics();
 }
@@ -32,7 +56,7 @@ async function loadStoredTopics() {
   if (Array.isArray(synced[topicIdsKey])) {
     const syncedTopics = synced[topicIdsKey].map((id) => synced[`${topicStoragePrefix}${id}`]);
     if (syncedTopics.some((topic) => !topic || !Array.isArray(topic.links))) {
-      throw new Error("Die synchronisierten Listen sind unvollständig.");
+      throw new Error(message("incompleteSyncedLists"));
     }
 
     if (
@@ -98,7 +122,7 @@ async function persistTopics(nextTopics) {
 
 function syncErrorMessage(error) {
   const details = error instanceof Error ? ` ${error.message}` : "";
-  return `Speichern in Firefox Sync fehlgeschlagen.${details} Prüfe die Sync-Einstellungen und das Speicherlimit.`;
+  return message("syncSaveFailed", details);
 }
 
 async function refreshActiveTab() {
@@ -136,23 +160,26 @@ function renderTopics() {
     toggleButton.className = "topic-toggle";
     toggleButton.type = "button";
     toggleButton.textContent = "▾";
-    toggleButton.title = "Liste zuklappen";
-    toggleButton.setAttribute("aria-label", `${topic.name} zuklappen`);
+    toggleButton.title = message("collapseList");
+    toggleButton.setAttribute("aria-label", message("collapseListAria", topic.name));
     toggleButton.setAttribute("aria-expanded", "true");
     toggleButton.setAttribute("aria-controls", content.id);
     toggleButton.addEventListener("click", () => {
       content.hidden = !content.hidden;
       const expanded = !content.hidden;
       toggleButton.textContent = expanded ? "▾" : "▸";
-      toggleButton.title = expanded ? "Liste zuklappen" : "Liste aufklappen";
-      toggleButton.setAttribute("aria-label", `${topic.name} ${expanded ? "zuklappen" : "aufklappen"}`);
+      toggleButton.title = message(expanded ? "collapseList" : "expandList");
+      toggleButton.setAttribute(
+        "aria-label",
+        message(expanded ? "collapseListAria" : "expandListAria", topic.name),
+      );
       toggleButton.setAttribute("aria-expanded", String(expanded));
     });
 
     const name = document.createElement("span");
     name.className = "topic-name";
     name.textContent = topic.name;
-    name.title = "Doppelklicken zum Umbenennen";
+    name.title = message("renameHint");
     name.addEventListener("dblclick", () => {
       const input = document.createElement("input");
       input.className = "topic-name-input";
@@ -179,7 +206,7 @@ function renderTopics() {
         topic.name = newName;
         try {
           await persistTopics(topics);
-          statusMessage.textContent = `Liste in „${newName}“ umbenannt.`;
+          statusMessage.textContent = message("topicRenamed", newName);
           renderTopics();
         } catch (error) {
           topic.name = previousName;
@@ -210,14 +237,14 @@ function renderTopics() {
     exportButton.className = "export-button";
     exportButton.type = "button";
     exportButton.textContent = "CSV";
-    exportButton.title = "Liste als CSV exportieren";
-    exportButton.setAttribute("aria-label", `${topic.name} als CSV exportieren`);
+    exportButton.title = message("exportCsv");
+    exportButton.setAttribute("aria-label", message("exportCsvAria", topic.name));
     exportButton.addEventListener("click", () => exportTopic(topic.id));
 
     const addButton = document.createElement("button");
     addButton.className = "add-button";
     addButton.type = "button";
-    addButton.textContent = "Seite hinzufügen";
+    addButton.textContent = message("addPage");
     addButton.disabled = !currentTab?.url;
     addButton.addEventListener("click", () => addCurrentPage(topic.id));
 
@@ -248,8 +275,11 @@ function renderTopics() {
         const removeButton = document.createElement("button");
         removeButton.className = "remove-link";
         removeButton.type = "button";
-        removeButton.textContent = "Entfernen";
-        removeButton.setAttribute("aria-label", `${anchor.textContent} aus ${topic.name} entfernen`);
+        removeButton.textContent = message("remove");
+        removeButton.setAttribute(
+          "aria-label",
+          message("removeLinkAria", [anchor.textContent, topic.name]),
+        );
         removeButton.addEventListener("click", () => removeLink(topic.id, link.url));
 
         row.append(anchor, removeButton);
@@ -258,9 +288,9 @@ function renderTopics() {
         priceInput.className = "link-price";
         priceInput.type = "text";
         priceInput.maxLength = 60;
-        priceInput.placeholder = "Preis (z. B. 12,99 €)";
+        priceInput.placeholder = message("pricePlaceholder");
         priceInput.value = link.price || "";
-        priceInput.setAttribute("aria-label", `Preis zu ${link.title || link.url}`);
+        priceInput.setAttribute("aria-label", message("priceFor", link.title || link.url));
 
         const addressRow = document.createElement("div");
         addressRow.className = "address-row";
@@ -269,24 +299,24 @@ function renderTopics() {
         addressInput.className = "link-address";
         addressInput.type = "text";
         addressInput.maxLength = 500;
-        addressInput.placeholder = "Adresse";
+        addressInput.placeholder = message("addressPlaceholder");
         addressInput.value = link.address || "";
-        addressInput.setAttribute("aria-label", `Adresse zu ${link.title || link.url}`);
+        addressInput.setAttribute("aria-label", message("addressFor", link.title || link.url));
 
         const copyAddressButton = document.createElement("button");
         copyAddressButton.className = "address-action";
         copyAddressButton.type = "button";
         copyAddressButton.textContent = "⧉";
-        copyAddressButton.title = "Adresse kopieren";
-        copyAddressButton.setAttribute("aria-label", `Adresse zu ${link.title || link.url} kopieren`);
+        copyAddressButton.title = message("copyAddress");
+        copyAddressButton.setAttribute("aria-label", message("copyAddressFor", link.title || link.url));
         copyAddressButton.addEventListener("click", () => copyAddress(addressInput.value));
 
         const searchAddressButton = document.createElement("button");
         searchAddressButton.className = "address-action";
         searchAddressButton.type = "button";
         searchAddressButton.textContent = "↗";
-        searchAddressButton.title = "Adresse auf OpenStreetMap suchen";
-        searchAddressButton.setAttribute("aria-label", `Adresse zu ${link.title || link.url} auf OpenStreetMap suchen`);
+        searchAddressButton.title = message("searchAddress");
+        searchAddressButton.setAttribute("aria-label", message("searchAddressFor", link.title || link.url));
         searchAddressButton.addEventListener("click", () => searchAddress(addressInput.value));
 
         addressRow.append(addressInput, copyAddressButton, searchAddressButton);
@@ -295,9 +325,9 @@ function renderTopics() {
         commentInput.className = "link-comment";
         commentInput.rows = 2;
         commentInput.maxLength = 1000;
-        commentInput.placeholder = "Kommentar zu diesem Eintrag …";
+        commentInput.placeholder = message("commentPlaceholder");
         commentInput.value = link.note || "";
-        commentInput.setAttribute("aria-label", `Kommentar zu ${link.title || link.url}`);
+        commentInput.setAttribute("aria-label", message("commentFor", link.title || link.url));
 
         const bindAutoSave = (input, field, label) => {
           let saveTimer;
@@ -311,9 +341,9 @@ function renderTopics() {
           });
           input.addEventListener("blur", save);
         };
-        bindAutoSave(priceInput, "price", "Preis");
-        bindAutoSave(addressInput, "address", "Adresse");
-        bindAutoSave(commentInput, "note", "Kommentar");
+        bindAutoSave(priceInput, "price", "price");
+        bindAutoSave(addressInput, "address", "address");
+        bindAutoSave(commentInput, "note", "comment");
 
         const statusRow = document.createElement("div");
         statusRow.className = "link-status";
@@ -323,22 +353,22 @@ function renderTopics() {
         const contactedCheckbox = document.createElement("input");
         contactedCheckbox.type = "checkbox";
         contactedCheckbox.checked = Boolean(link.contacted);
-        contactedCheckbox.setAttribute("aria-label", `Kontaktiert: ${link.title || link.url}`);
+        contactedCheckbox.setAttribute("aria-label", message("contactedFor", link.title || link.url));
         contactedCheckbox.addEventListener("change", () => {
-          saveLinkField(topic.id, link.url, "contacted", contactedCheckbox.checked, "Kontaktiert-Status");
+          saveLinkField(topic.id, link.url, "contacted", contactedCheckbox.checked, "contactedStatus");
         });
-        contactedLabel.append(contactedCheckbox, document.createTextNode("Kontaktiert"));
+        contactedLabel.append(contactedCheckbox, document.createTextNode(message("contacted")));
 
         const finishedLabel = document.createElement("label");
         finishedLabel.className = "link-checkbox";
         const finishedCheckbox = document.createElement("input");
         finishedCheckbox.type = "checkbox";
         finishedCheckbox.checked = Boolean(link.finished);
-        finishedCheckbox.setAttribute("aria-label", `Fertig: ${link.title || link.url}`);
+        finishedCheckbox.setAttribute("aria-label", message("finishedFor", link.title || link.url));
         finishedCheckbox.addEventListener("change", () => {
-          saveLinkField(topic.id, link.url, "finished", finishedCheckbox.checked, "Fertig-Status");
+          saveLinkField(topic.id, link.url, "finished", finishedCheckbox.checked, "finishedStatus");
         });
-        finishedLabel.append(finishedCheckbox, document.createTextNode("Fertig"));
+        finishedLabel.append(finishedCheckbox, document.createTextNode(message("finished")));
 
         statusRow.append(contactedLabel, finishedLabel);
         entry.append(row, priceInput, addressRow, commentInput, statusRow);
@@ -353,7 +383,7 @@ function renderTopics() {
     const deleteButton = document.createElement("button");
     deleteButton.className = "delete-topic";
     deleteButton.type = "button";
-    deleteButton.textContent = "Thema löschen";
+    deleteButton.textContent = message("deleteTopic");
     deleteButton.addEventListener("click", () => deleteTopic(topic.id));
     footer.append(deleteButton);
     content.append(footer);
@@ -379,47 +409,54 @@ function exportTopic(topicId) {
 
   const escapeCsvValue = (value) => `"${String(value ?? "").replaceAll('"', '""')}"`;
   const rows = [
-    ["Link", "Preis", "Adresse", "Kommentar", "Kontaktiert", "Fertig"],
+    [
+      message("csvUrlHeader"),
+      message("csvPriceHeader"),
+      message("csvAddressHeader"),
+      message("csvCommentHeader"),
+      message("csvContactedHeader"),
+      message("csvFinishedHeader"),
+    ],
     ...topic.links.map((link) => [
       link.url,
       link.price || "",
       link.address || "",
       link.note || "",
-      link.contacted ? "Ja" : "Nein",
-      link.finished ? "Ja" : "Nein",
+      link.contacted ? message("yes") : message("no"),
+      link.finished ? message("yes") : message("no"),
     ]),
   ];
   const csv = `\uFEFF${rows.map((row) => row.map(escapeCsvValue).join(",")).join("\r\n")}`;
   const blobUrl = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
   const downloadLink = document.createElement("a");
-  const filename = topic.name.replace(/[\\/:*?"<>|]/g, "_").trim() || "Themenliste";
+  const filename = topic.name.replace(/[\\/:*?"<>|]/g, "_").trim() || message("defaultFilename");
 
   downloadLink.href = blobUrl;
   downloadLink.download = `${filename}.csv`;
   downloadLink.click();
   setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
-  statusMessage.textContent = `„${topic.name}“ als CSV exportiert.`;
+  statusMessage.textContent = message("topicExported", topic.name);
 }
 
 async function copyAddress(address) {
   const value = address.trim();
   if (!value) {
-    statusMessage.textContent = "Bitte zuerst eine Adresse eingeben.";
+    statusMessage.textContent = message("enterAddressFirst");
     return;
   }
 
   try {
     await navigator.clipboard.writeText(value);
-    statusMessage.textContent = "Adresse kopiert.";
+    statusMessage.textContent = message("addressCopied");
   } catch {
-    statusMessage.textContent = "Adresse konnte nicht kopiert werden.";
+    statusMessage.textContent = message("addressCopyFailed");
   }
 }
 
 async function searchAddress(address) {
   const value = address.trim();
   if (!value) {
-    statusMessage.textContent = "Bitte zuerst eine Adresse eingeben.";
+    statusMessage.textContent = message("enterAddressFirst");
     return;
   }
 
@@ -428,7 +465,7 @@ async function searchAddress(address) {
       url: `https://www.openstreetmap.org/search?query=${encodeURIComponent(value)}`,
     });
   } catch {
-    statusMessage.textContent = "OpenStreetMap konnte nicht geöffnet werden.";
+    statusMessage.textContent = message("openStreetMapFailed");
   }
 }
 
@@ -440,7 +477,7 @@ async function saveLinkField(topicId, url, field, value, label) {
   link[field] = value;
   try {
     await persistTopics(topics);
-    statusMessage.textContent = `${label} gespeichert.`;
+    statusMessage.textContent = message("fieldSaved", message(label));
   } catch (error) {
     statusMessage.textContent = syncErrorMessage(error);
   }
@@ -453,7 +490,7 @@ async function addCurrentPage(topicId) {
   if (!topic) return;
 
   if (topic.links.some((link) => link.url === currentTab.url)) {
-    statusMessage.textContent = "Diese Seite ist bereits in der Liste.";
+    statusMessage.textContent = message("pageAlreadySaved");
     return;
   }
 
@@ -468,7 +505,7 @@ async function addCurrentPage(topicId) {
     savedAt: new Date().toISOString(),
   });
   if (await saveTopics()) {
-    statusMessage.textContent = `Seite zu „${topic.name}“ hinzugefügt.`;
+    statusMessage.textContent = message("pageAdded", topic.name);
   }
 }
 
@@ -478,14 +515,14 @@ async function removeLink(topicId, url) {
 
   topic.links = topic.links.filter((link) => link.url !== url);
   if (await saveTopics()) {
-    statusMessage.textContent = "Seite entfernt.";
+    statusMessage.textContent = message("pageRemoved");
   }
 }
 
 async function deleteTopic(topicId) {
   topics = topics.filter((topic) => topic.id !== topicId);
   if (await saveTopics()) {
-    statusMessage.textContent = "Thema gelöscht.";
+    statusMessage.textContent = message("topicDeleted");
   }
 }
 
@@ -502,12 +539,15 @@ topicForm.addEventListener("submit", async (event) => {
   if (await saveTopics()) {
     topicForm.reset();
     topicNameInput.focus();
-    statusMessage.textContent = `Thema „${name}“ erstellt.`;
+    statusMessage.textContent = message("topicCreated", name);
   }
 });
 
-loadPopup().catch((error) => {
-  statusMessage.textContent = `Listen konnten nicht geladen oder synchronisiert werden.${error instanceof Error ? ` ${error.message}` : ""}`;
+loadPanel().catch((error) => {
+  statusMessage.textContent = message(
+    "topicsLoadFailed",
+    error instanceof Error ? ` ${error.message}` : "",
+  );
 });
 
 browser.storage.onChanged.addListener(async (changes, areaName) => {
@@ -527,9 +567,12 @@ browser.storage.onChanged.addListener(async (changes, areaName) => {
 
     topics = updatedTopics;
     renderTopics();
-    statusMessage.textContent = "Listen wurden über Firefox Sync aktualisiert.";
+    statusMessage.textContent = message("syncUpdated");
   } catch (error) {
-    statusMessage.textContent = `Listen konnten nicht aktualisiert werden.${error instanceof Error ? ` ${error.message}` : ""}`;
+    statusMessage.textContent = message(
+      "topicsUpdateFailed",
+      error instanceof Error ? ` ${error.message}` : "",
+    );
   }
 });
 
