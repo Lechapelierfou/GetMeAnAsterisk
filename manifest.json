@@ -22,7 +22,7 @@
   "action": {
     "default_title": "__MSG_actionTitle__",
     "default_icon": "icons/icon.svg",
-    "default_panel": "panel.html"
+    "default_popup": "panel.html"
   },
   "sidebar_action": {
     "default_title": "__MSG_sidebarTitle__",

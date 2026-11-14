@@ -34,7 +34,6 @@ textarea {
   padding: 10px 10px 16px;
 }
 
-.topbar,
 .section-heading,
 .topic-heading,
 .form-row {
@@ -43,68 +42,9 @@ textarea {
   justify-content: space-between;
 }
 
-.topbar {
-  margin-bottom: 18px;
-}
-
-.eyebrow,
-.section-label {
-  margin: 0;
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-}
-
-h1,
 h2,
 p {
   margin-top: 0;
-}
-
-h1 {
-  margin-bottom: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 25px;
-  font-weight: 500;
-}
-
-.asterisk {
-  display: grid;
-  width: 38px;
-  height: 38px;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--orange);
-  color: #fff;
-  font-family: Georgia, serif;
-  font-size: 31px;
-  line-height: 1;
-}
-
-.current-page {
-  padding: 13px 14px;
-  border-left: 3px solid var(--orange);
-  background: #eeefe7;
-}
-
-.page-title {
-  margin: 7px 0 3px;
-  overflow: hidden;
-  font-size: 13px;
-  font-weight: 700;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.page-url {
-  margin: 0;
-  overflow: hidden;
-  color: var(--muted);
-  font-size: 11px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .lists {
