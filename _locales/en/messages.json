@@ -1,0 +1,197 @@
+{
+  "extensionDescription": {
+    "message": "Save pages to topic lists and keep track of your finds."
+  },
+  "actionTitle": {
+    "message": "Add page to a list"
+  },
+  "sidebarTitle": {
+    "message": "GetMeAn* – research tool"
+  },
+  "topicsHeading": {
+    "message": "Your topics"
+  },
+  "emptyState": {
+    "message": "No topics yet. Create your first list."
+  },
+  "newTopicLabel": {
+    "message": "New topic"
+  },
+  "topicPlaceholder": {
+    "message": "e.g. Apartment search"
+  },
+  "createTopic": {
+    "message": "Create topic"
+  },
+  "migrationComplete": {
+    "message": "Existing lists were moved to Firefox Sync."
+  },
+  "incompleteSyncedLists": {
+    "message": "The synced lists are incomplete."
+  },
+  "syncSaveFailed": {
+    "message": "Saving to Firefox Sync failed.$1 Check your Sync settings and the storage limit."
+  },
+  "collapseList": {
+    "message": "Collapse list"
+  },
+  "expandList": {
+    "message": "Expand list"
+  },
+  "collapseListAria": {
+    "message": "Collapse $1"
+  },
+  "expandListAria": {
+    "message": "Expand $1"
+  },
+  "renameHint": {
+    "message": "Double-click to rename"
+  },
+  "topicRenamed": {
+    "message": "Renamed list to “$1”."
+  },
+  "exportCsv": {
+    "message": "Export list as CSV"
+  },
+  "exportCsvAria": {
+    "message": "Export $1 as CSV"
+  },
+  "addPage": {
+    "message": "Add page"
+  },
+  "remove": {
+    "message": "Remove"
+  },
+  "removeLinkAria": {
+    "message": "Remove $1 from $2"
+  },
+  "pricePlaceholder": {
+    "message": "Price (e.g. €12.99)"
+  },
+  "priceFor": {
+    "message": "Price for $1"
+  },
+  "addressPlaceholder": {
+    "message": "Address"
+  },
+  "addressFor": {
+    "message": "Address for $1"
+  },
+  "copyAddress": {
+    "message": "Copy address"
+  },
+  "copyAddressFor": {
+    "message": "Copy address for $1"
+  },
+  "searchAddress": {
+    "message": "Search address on OpenStreetMap"
+  },
+  "searchAddressFor": {
+    "message": "Search address for $1 on OpenStreetMap"
+  },
+  "commentPlaceholder": {
+    "message": "Comment on this entry …"
+  },
+  "commentFor": {
+    "message": "Comment on $1"
+  },
+  "contacted": {
+    "message": "Contacted"
+  },
+  "contactedFor": {
+    "message": "Contacted: $1"
+  },
+  "finished": {
+    "message": "Done"
+  },
+  "finishedFor": {
+    "message": "Done: $1"
+  },
+  "deleteTopic": {
+    "message": "Delete topic"
+  },
+  "csvUrlHeader": {
+    "message": "Link"
+  },
+  "csvPriceHeader": {
+    "message": "Price"
+  },
+  "csvAddressHeader": {
+    "message": "Address"
+  },
+  "csvCommentHeader": {
+    "message": "Comment"
+  },
+  "csvContactedHeader": {
+    "message": "Contacted"
+  },
+  "csvFinishedHeader": {
+    "message": "Done"
+  },
+  "yes": {
+    "message": "Yes"
+  },
+  "no": {
+    "message": "No"
+  },
+  "defaultFilename": {
+    "message": "Topic list"
+  },
+  "topicExported": {
+    "message": "Exported “$1” as CSV."
+  },
+  "enterAddressFirst": {
+    "message": "Enter an address first."
+  },
+  "addressCopied": {
+    "message": "Address copied."
+  },
+  "addressCopyFailed": {
+    "message": "Could not copy the address."
+  },
+  "openStreetMapFailed": {
+    "message": "Could not open OpenStreetMap."
+  },
+  "fieldSaved": {
+    "message": "$1 saved."
+  },
+  "price": {
+    "message": "Price"
+  },
+  "address": {
+    "message": "Address"
+  },
+  "comment": {
+    "message": "Comment"
+  },
+  "contactedStatus": {
+    "message": "Contact status"
+  },
+  "finishedStatus": {
+    "message": "Completion status"
+  },
+  "pageAlreadySaved": {
+    "message": "This page is already in the list."
+  },
+  "pageAdded": {
+    "message": "Added page to “$1”."
+  },
+  "pageRemoved": {
+    "message": "Page removed."
+  },
+  "topicDeleted": {
+    "message": "Topic deleted."
+  },
+  "topicCreated": {
+    "message": "Created topic “$1”."
+  },
+  "topicsLoadFailed": {
+    "message": "Could not load or sync lists.$1"
+  },
+  "syncUpdated": {
+    "message": "Lists updated through Firefox Sync."
+  },
+  "topicsUpdateFailed": {
+    "message": "Could not update lists.$1"
+  }
+}

@@ -14,3 +14,7 @@ GetMeAn* collects web pages in topic-based lists. For example, create a list for
 Topics and saved pages are stored with Firefox Sync and are available in desktop Firefox profiles signed in to the same Mozilla account. Enable **Add-ons** in Firefox Sync settings on each profile. Firefox for Android does not currently sync extension storage.
 
 On first launch after this change, existing lists in local extension storage are copied to Firefox Sync. Each topic is stored separately so one large list does not consume the per-item quota for all lists. The extension's fixed ID in `manifest.json` is required for Sync to associate the data with the same add-on. Firefox Sync storage is limited to 8 KiB per item and 100 KiB total; if a list or the overall data exceeds those limits, the extension reports the error and keeps the existing synced data.
+
+## Languages
+
+The interface follows Firefox's display language automatically. German (`_locales/de`) is the default, with English (`_locales/en`) and French (`_locales/fr`) also available. Add or update translations in each locale's `messages.json`; message keys are shared between the files. User-created topic names and notes are not translated.

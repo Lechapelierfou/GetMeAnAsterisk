@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GetMeAn*</title>
+    <link rel="stylesheet" href="panel.css" />
+    <script type="module" src="panel.js"></script>
+  </head>
+  <body>
+    <main class="panel">
+      <section class="lists" aria-labelledby="lists-heading">
+        <div class="section-heading">
+          <h2 id="lists-heading" data-i18n="topicsHeading">Deine Themen</h2>
+          <span id="list-count" class="list-count">0</span>
+        </div>
+        <div id="topic-list" class="topic-list"></div>
+        <p id="empty-state" class="empty-state" data-i18n="emptyState" hidden>Noch keine Themen. Lege deine erste Liste an.</p>
+      </section>
+
+      <form id="topic-form" class="topic-form">
+        <label for="topic-name" data-i18n="newTopicLabel">Neues Thema</label>
+        <div class="form-row">
+          <input id="topic-name" name="topic" maxlength="60" data-i18n-placeholder="topicPlaceholder" placeholder="z. B. Wohnungssuche" required />
+          <button class="create-button" type="submit" data-i18n-title="createTopic" data-i18n-aria-label="createTopic" aria-label="Thema erstellen" title="Thema erstellen">+</button>
+        </div>
+      </form>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </main>
+  </body>
+</html>
