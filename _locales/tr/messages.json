@@ -1,0 +1,197 @@
+{
+  "extensionDescription": {
+    "message": "Sayfaları konu listelerine kaydedin ve bulduklarınızı takip edin."
+  },
+  "actionTitle": {
+    "message": "Sayfayı bir listeye ekle"
+  },
+  "sidebarTitle": {
+    "message": "GetMeAn* – araştırma aracı"
+  },
+  "topicsHeading": {
+    "message": "Konularınız"
+  },
+  "emptyState": {
+    "message": "Henüz konu yok. İlk listenizi oluşturun."
+  },
+  "newTopicLabel": {
+    "message": "Yeni konu"
+  },
+  "topicPlaceholder": {
+    "message": "Örn. Ev arama"
+  },
+  "createTopic": {
+    "message": "Konu oluştur"
+  },
+  "migrationComplete": {
+    "message": "Mevcut listeler Firefox Sync'e taşındı."
+  },
+  "incompleteSyncedLists": {
+    "message": "Eşitlenen listeler eksik."
+  },
+  "syncSaveFailed": {
+    "message": "Firefox Sync'e kaydedilemedi.$1 Sync ayarlarını ve depolama sınırını kontrol edin."
+  },
+  "collapseList": {
+    "message": "Listeyi daralt"
+  },
+  "expandList": {
+    "message": "Listeyi genişlet"
+  },
+  "collapseListAria": {
+    "message": "$1 listesini daralt"
+  },
+  "expandListAria": {
+    "message": "$1 listesini genişlet"
+  },
+  "renameHint": {
+    "message": "Yeniden adlandırmak için çift tıklayın"
+  },
+  "topicRenamed": {
+    "message": "Listenin adı \"$1\" olarak değiştirildi."
+  },
+  "exportCsv": {
+    "message": "Listeyi CSV olarak dışa aktar"
+  },
+  "exportCsvAria": {
+    "message": "$1 listesini CSV olarak dışa aktar"
+  },
+  "addPage": {
+    "message": "Sayfa ekle"
+  },
+  "remove": {
+    "message": "Kaldır"
+  },
+  "removeLinkAria": {
+    "message": "$1 sayfasını $2 listesinden kaldır"
+  },
+  "pricePlaceholder": {
+    "message": "Fiyat (örn. 12,99 €)"
+  },
+  "priceFor": {
+    "message": "$1 için fiyat"
+  },
+  "addressPlaceholder": {
+    "message": "Adres"
+  },
+  "addressFor": {
+    "message": "$1 için adres"
+  },
+  "copyAddress": {
+    "message": "Adresi kopyala"
+  },
+  "copyAddressFor": {
+    "message": "$1 için adresi kopyala"
+  },
+  "searchAddress": {
+    "message": "Adresi OpenStreetMap'te ara"
+  },
+  "searchAddressFor": {
+    "message": "$1 için adresi OpenStreetMap'te ara"
+  },
+  "commentPlaceholder": {
+    "message": "Bu kayıt hakkında yorum…"
+  },
+  "commentFor": {
+    "message": "$1 için yorum"
+  },
+  "contacted": {
+    "message": "İletişime geçildi"
+  },
+  "contactedFor": {
+    "message": "İletişime geçildi: $1"
+  },
+  "finished": {
+    "message": "Tamamlandı"
+  },
+  "finishedFor": {
+    "message": "Tamamlandı: $1"
+  },
+  "deleteTopic": {
+    "message": "Konuyu sil"
+  },
+  "csvUrlHeader": {
+    "message": "Bağlantı"
+  },
+  "csvPriceHeader": {
+    "message": "Fiyat"
+  },
+  "csvAddressHeader": {
+    "message": "Adres"
+  },
+  "csvCommentHeader": {
+    "message": "Yorum"
+  },
+  "csvContactedHeader": {
+    "message": "İletişime geçildi"
+  },
+  "csvFinishedHeader": {
+    "message": "Tamamlandı"
+  },
+  "yes": {
+    "message": "Evet"
+  },
+  "no": {
+    "message": "Hayır"
+  },
+  "defaultFilename": {
+    "message": "Konu listesi"
+  },
+  "topicExported": {
+    "message": "\"$1\" CSV olarak dışa aktarıldı."
+  },
+  "enterAddressFirst": {
+    "message": "Önce bir adres girin."
+  },
+  "addressCopied": {
+    "message": "Adres kopyalandı."
+  },
+  "addressCopyFailed": {
+    "message": "Adres kopyalanamadı."
+  },
+  "openStreetMapFailed": {
+    "message": "OpenStreetMap açılamadı."
+  },
+  "fieldSaved": {
+    "message": "$1 alanı kaydedildi."
+  },
+  "price": {
+    "message": "Fiyat"
+  },
+  "address": {
+    "message": "Adres"
+  },
+  "comment": {
+    "message": "Yorum"
+  },
+  "contactedStatus": {
+    "message": "İletişim durumu"
+  },
+  "finishedStatus": {
+    "message": "Tamamlanma durumu"
+  },
+  "pageAlreadySaved": {
+    "message": "Bu sayfa zaten listede."
+  },
+  "pageAdded": {
+    "message": "Sayfa \"$1\" listesine eklendi."
+  },
+  "pageRemoved": {
+    "message": "Sayfa kaldırıldı."
+  },
+  "topicDeleted": {
+    "message": "Konu silindi."
+  },
+  "topicCreated": {
+    "message": "\"$1\" konusu oluşturuldu."
+  },
+  "topicsLoadFailed": {
+    "message": "Listeler yüklenemedi veya eşitlenemedi.$1"
+  },
+  "syncUpdated": {
+    "message": "Listeler Firefox Sync üzerinden güncellendi."
+  },
+  "topicsUpdateFailed": {
+    "message": "Listeler güncellenemedi.$1"
+  }
+}

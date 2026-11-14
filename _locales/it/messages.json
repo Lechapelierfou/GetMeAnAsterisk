@@ -1,0 +1,197 @@
+{
+  "extensionDescription": {
+    "message": "Salva pagine in elenchi tematici e tieni traccia delle tue scoperte."
+  },
+  "actionTitle": {
+    "message": "Aggiungi la pagina a un elenco"
+  },
+  "sidebarTitle": {
+    "message": "GetMeAn* – strumento di ricerca"
+  },
+  "topicsHeading": {
+    "message": "I tuoi temi"
+  },
+  "emptyState": {
+    "message": "Non ci sono ancora temi. Crea il tuo primo elenco."
+  },
+  "newTopicLabel": {
+    "message": "Nuovo tema"
+  },
+  "topicPlaceholder": {
+    "message": "es. Ricerca di un appartamento"
+  },
+  "createTopic": {
+    "message": "Crea tema"
+  },
+  "migrationComplete": {
+    "message": "Gli elenchi esistenti sono stati trasferiti a Firefox Sync."
+  },
+  "incompleteSyncedLists": {
+    "message": "Gli elenchi sincronizzati sono incompleti."
+  },
+  "syncSaveFailed": {
+    "message": "Salvataggio su Firefox Sync non riuscito.$1 Controlla le impostazioni di Sync e il limite di archiviazione."
+  },
+  "collapseList": {
+    "message": "Comprimi elenco"
+  },
+  "expandList": {
+    "message": "Espandi elenco"
+  },
+  "collapseListAria": {
+    "message": "Comprimi $1"
+  },
+  "expandListAria": {
+    "message": "Espandi $1"
+  },
+  "renameHint": {
+    "message": "Fai doppio clic per rinominare"
+  },
+  "topicRenamed": {
+    "message": "Elenco rinominato in «$1»."
+  },
+  "exportCsv": {
+    "message": "Esporta elenco come CSV"
+  },
+  "exportCsvAria": {
+    "message": "Esporta $1 come CSV"
+  },
+  "addPage": {
+    "message": "Aggiungi pagina"
+  },
+  "remove": {
+    "message": "Rimuovi"
+  },
+  "removeLinkAria": {
+    "message": "Rimuovi $1 da $2"
+  },
+  "pricePlaceholder": {
+    "message": "Prezzo (es. 12,99 €)"
+  },
+  "priceFor": {
+    "message": "Prezzo per $1"
+  },
+  "addressPlaceholder": {
+    "message": "Indirizzo"
+  },
+  "addressFor": {
+    "message": "Indirizzo per $1"
+  },
+  "copyAddress": {
+    "message": "Copia indirizzo"
+  },
+  "copyAddressFor": {
+    "message": "Copia l’indirizzo per $1"
+  },
+  "searchAddress": {
+    "message": "Cerca indirizzo su OpenStreetMap"
+  },
+  "searchAddressFor": {
+    "message": "Cerca l’indirizzo per $1 su OpenStreetMap"
+  },
+  "commentPlaceholder": {
+    "message": "Commento su questa voce…"
+  },
+  "commentFor": {
+    "message": "Commento su $1"
+  },
+  "contacted": {
+    "message": "Contattato"
+  },
+  "contactedFor": {
+    "message": "Contattato: $1"
+  },
+  "finished": {
+    "message": "Completato"
+  },
+  "finishedFor": {
+    "message": "Completato: $1"
+  },
+  "deleteTopic": {
+    "message": "Elimina tema"
+  },
+  "csvUrlHeader": {
+    "message": "Link"
+  },
+  "csvPriceHeader": {
+    "message": "Prezzo"
+  },
+  "csvAddressHeader": {
+    "message": "Indirizzo"
+  },
+  "csvCommentHeader": {
+    "message": "Commento"
+  },
+  "csvContactedHeader": {
+    "message": "Contattato"
+  },
+  "csvFinishedHeader": {
+    "message": "Completato"
+  },
+  "yes": {
+    "message": "Sì"
+  },
+  "no": {
+    "message": "No"
+  },
+  "defaultFilename": {
+    "message": "Elenco temi"
+  },
+  "topicExported": {
+    "message": "«$1» esportato come CSV."
+  },
+  "enterAddressFirst": {
+    "message": "Inserisci prima un indirizzo."
+  },
+  "addressCopied": {
+    "message": "Indirizzo copiato."
+  },
+  "addressCopyFailed": {
+    "message": "Impossibile copiare l’indirizzo."
+  },
+  "openStreetMapFailed": {
+    "message": "Impossibile aprire OpenStreetMap."
+  },
+  "fieldSaved": {
+    "message": "Campo «$1» salvato."
+  },
+  "price": {
+    "message": "Prezzo"
+  },
+  "address": {
+    "message": "Indirizzo"
+  },
+  "comment": {
+    "message": "Commento"
+  },
+  "contactedStatus": {
+    "message": "Stato del contatto"
+  },
+  "finishedStatus": {
+    "message": "Stato di completamento"
+  },
+  "pageAlreadySaved": {
+    "message": "Questa pagina è già nell’elenco."
+  },
+  "pageAdded": {
+    "message": "Pagina aggiunta a «$1»."
+  },
+  "pageRemoved": {
+    "message": "Pagina rimossa."
+  },
+  "topicDeleted": {
+    "message": "Tema eliminato."
+  },
+  "topicCreated": {
+    "message": "Tema «$1» creato."
+  },
+  "topicsLoadFailed": {
+    "message": "Impossibile caricare o sincronizzare gli elenchi.$1"
+  },
+  "syncUpdated": {
+    "message": "Elenchi aggiornati tramite Firefox Sync."
+  },
+  "topicsUpdateFailed": {
+    "message": "Impossibile aggiornare gli elenchi.$1"
+  }
+}

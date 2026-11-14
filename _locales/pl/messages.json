@@ -1,0 +1,197 @@
+{
+  "extensionDescription": {
+    "message": "Zapisuj strony na listach tematycznych i śledź znalezione oferty."
+  },
+  "actionTitle": {
+    "message": "Dodaj stronę do listy"
+  },
+  "sidebarTitle": {
+    "message": "GetMeAn* – narzędzie badawcze"
+  },
+  "topicsHeading": {
+    "message": "Twoje tematy"
+  },
+  "emptyState": {
+    "message": "Nie masz jeszcze żadnych tematów. Utwórz pierwszą listę."
+  },
+  "newTopicLabel": {
+    "message": "Nowy temat"
+  },
+  "topicPlaceholder": {
+    "message": "np. Poszukiwanie mieszkania"
+  },
+  "createTopic": {
+    "message": "Utwórz temat"
+  },
+  "migrationComplete": {
+    "message": "Istniejące listy zostały przeniesione do Firefox Sync."
+  },
+  "incompleteSyncedLists": {
+    "message": "Zsynchronizowane listy są niekompletne."
+  },
+  "syncSaveFailed": {
+    "message": "Nie udało się zapisać danych w Firefox Sync.$1 Sprawdź ustawienia Sync i limit miejsca."
+  },
+  "collapseList": {
+    "message": "Zwiń listę"
+  },
+  "expandList": {
+    "message": "Rozwiń listę"
+  },
+  "collapseListAria": {
+    "message": "Zwiń listę: $1"
+  },
+  "expandListAria": {
+    "message": "Rozwiń listę: $1"
+  },
+  "renameHint": {
+    "message": "Kliknij dwukrotnie, aby zmienić nazwę"
+  },
+  "topicRenamed": {
+    "message": "Zmieniono nazwę listy na „$1”."
+  },
+  "exportCsv": {
+    "message": "Eksportuj listę do CSV"
+  },
+  "exportCsvAria": {
+    "message": "Eksportuj $1 do CSV"
+  },
+  "addPage": {
+    "message": "Dodaj stronę"
+  },
+  "remove": {
+    "message": "Usuń"
+  },
+  "removeLinkAria": {
+    "message": "Usuń $1 z listy $2"
+  },
+  "pricePlaceholder": {
+    "message": "Cena (np. 12,99 zł)"
+  },
+  "priceFor": {
+    "message": "Cena dla: $1"
+  },
+  "addressPlaceholder": {
+    "message": "Adres"
+  },
+  "addressFor": {
+    "message": "Adres dla: $1"
+  },
+  "copyAddress": {
+    "message": "Kopiuj adres"
+  },
+  "copyAddressFor": {
+    "message": "Kopiuj adres dla: $1"
+  },
+  "searchAddress": {
+    "message": "Szukaj adresu w OpenStreetMap"
+  },
+  "searchAddressFor": {
+    "message": "Szukaj adresu dla: $1 w OpenStreetMap"
+  },
+  "commentPlaceholder": {
+    "message": "Komentarz do tego wpisu…"
+  },
+  "commentFor": {
+    "message": "Komentarz do: $1"
+  },
+  "contacted": {
+    "message": "Skontaktowano się"
+  },
+  "contactedFor": {
+    "message": "Status kontaktu: $1"
+  },
+  "finished": {
+    "message": "Gotowe"
+  },
+  "finishedFor": {
+    "message": "Gotowe: $1"
+  },
+  "deleteTopic": {
+    "message": "Usuń temat"
+  },
+  "csvUrlHeader": {
+    "message": "Link"
+  },
+  "csvPriceHeader": {
+    "message": "Cena"
+  },
+  "csvAddressHeader": {
+    "message": "Adres"
+  },
+  "csvCommentHeader": {
+    "message": "Komentarz"
+  },
+  "csvContactedHeader": {
+    "message": "Kontakt"
+  },
+  "csvFinishedHeader": {
+    "message": "Gotowe"
+  },
+  "yes": {
+    "message": "Tak"
+  },
+  "no": {
+    "message": "Nie"
+  },
+  "defaultFilename": {
+    "message": "Lista tematów"
+  },
+  "topicExported": {
+    "message": "Wyeksportowano „$1” do CSV."
+  },
+  "enterAddressFirst": {
+    "message": "Najpierw wpisz adres."
+  },
+  "addressCopied": {
+    "message": "Skopiowano adres."
+  },
+  "addressCopyFailed": {
+    "message": "Nie udało się skopiować adresu."
+  },
+  "openStreetMapFailed": {
+    "message": "Nie udało się otworzyć OpenStreetMap."
+  },
+  "fieldSaved": {
+    "message": "Zapisano pole: $1."
+  },
+  "price": {
+    "message": "Cena"
+  },
+  "address": {
+    "message": "Adres"
+  },
+  "comment": {
+    "message": "Komentarz"
+  },
+  "contactedStatus": {
+    "message": "Status kontaktu"
+  },
+  "finishedStatus": {
+    "message": "Status ukończenia"
+  },
+  "pageAlreadySaved": {
+    "message": "Ta strona znajduje się już na liście."
+  },
+  "pageAdded": {
+    "message": "Dodano stronę do listy „$1”."
+  },
+  "pageRemoved": {
+    "message": "Usunięto stronę."
+  },
+  "topicDeleted": {
+    "message": "Usunięto temat."
+  },
+  "topicCreated": {
+    "message": "Utworzono temat „$1”."
+  },
+  "topicsLoadFailed": {
+    "message": "Nie udało się wczytać ani zsynchronizować list.$1"
+  },
+  "syncUpdated": {
+    "message": "Listy zostały zaktualizowane przez Firefox Sync."
+  },
+  "topicsUpdateFailed": {
+    "message": "Nie udało się zaktualizować list.$1"
+  }
+}
