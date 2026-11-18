@@ -18,3 +18,7 @@ On first launch after this change, existing lists in local extension storage are
 ## Languages
 
 The interface follows Firefox's display language automatically. English (`_locales/en`) is the fallback language; German (`_locales/de`), French (`_locales/fr`), Spanish (`_locales/es`), Italian (`_locales/it`), Polish (`_locales/pl`), Portuguese (`_locales/pt`), and Turkish (`_locales/tr`) are also available. Add or update translations in each locale's `messages.json`; message keys are shared between the files. User-created topic names and notes are not translated.
+
+## Releases
+
+The official signed releases can be found [here](https://addons.mozilla.org/de/firefox/addon/getmean/).
